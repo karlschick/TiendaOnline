@@ -77,6 +77,13 @@
                         <div class="form-group">
                             <label for="imagen">Imagen del Producto</label>
                             <input type="file" class="form-control" name="imagen" id="imagen" placeholder="Selecciona una imagen">
+                                <!-- Mostrar mensaje de error si el tamaño del archivo excede el límite -->
+                                @if ($errors->has('imagen'))
+                                <span class="text-danger">
+                                    {{ $errors->first('imagen') }}
+                                </span>
+                            @endif
+                            </div>
                         </div>
 
                         <!-- Estado del producto -->

@@ -38,6 +38,11 @@ class EdicionProductoController extends Controller
             'imagen' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Validación para que la imagen sea opcional
             'estado_producto' => 'required',
             // El campo 'visible' fue eliminado ya que no está en el formulario
+        ],[
+            'imagen.image' => 'El archivo debe ser una imagen.',
+            'imagen.mimes' => 'La imagen debe ser de tipo: jpeg, png, jpg o gif.',
+            'imagen.max' => 'El tamaño de la imagen no debe superar los 2MB.',
+            'imagen.uploaded' => 'Hubo un problema al subir la imagen, Revisa que no exceda las 2 MB y que sea formato png, jpg.',
         ]);
 
         // Buscar el producto por su ID

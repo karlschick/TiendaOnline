@@ -33,12 +33,10 @@ class ProductosController extends Controller
             'valor_seis_meses' => 'required|numeric',
             'valor_doce_meses' => 'required|numeric',
             'estado_producto' => 'required',
-            'imagen' => 'required',
-            'visible' => 'required',
-            'created_at' => 'required|date',
-            'updated_at' => 'required|date',
+            'imagen' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'visible' => 'required|boolean', // Aseguramos que el campo visible sea booleano (0 o 1)
         ]);
-
+    
         // Crear un nuevo producto
         $producto = new Producto();
         $producto->nombre_producto = $validatedData['nombre_producto'];
@@ -48,17 +46,29 @@ class ProductosController extends Controller
         $producto->valor_seis_meses = $validatedData['valor_seis_meses'];
         $producto->valor_doce_meses = $validatedData['valor_doce_meses'];
         $producto->estado_producto = $validatedData['estado_producto'];
-        $producto->imagen = $validatedData['imagen'];
         $producto->visible = $validatedData['visible'];
-        $producto->created_at = $validatedData['created_at'];
-        $producto->updated_at = $validatedData['updated_at'];
-
+    
+        // Procesar la imagen si se sube
+        if ($request->hasFile('imagen')) {
+            // Guardar la imagen en el directorio 'public/productos'
+            $file = $request->file('imagen');
+            $fileName = time() . '_' . $file->getClientOriginalName(); // Generar un nombre único
+            $filePath = $file->storeAs('public/productos', $fileName); // Guardar en la carpeta pública
+    
+            // Asignar la ruta completa relativa al producto
+            $producto->imagen = 'productos/' . $fileName;
+        } else {
+            // Si no se sube imagen, establecemos el campo imagen como null o un valor por defecto
+            $producto->imagen = null;
+        }
+    
         // Guardar en la base de datos
         $producto->save();
-
+    
         // Redireccionar a una página o mostrar un mensaje de éxito
         return redirect()->route('tiendaonline.productos')->with('success', 'Producto guardado correctamente.');
     }
+    
     // Actualizar el producto
 /*     public function gestionar()
     {

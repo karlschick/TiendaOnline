@@ -72,8 +72,9 @@
                                                 <!-- Contenedor para centrar la imagen -->
                                                 <div class="d-flex justify-content-center" style="padding: 10px;">
                                                     <img src="{{ $producto->imagen ? asset('storage/' . $producto->imagen) : asset('images/libros_vent.png') }}"
-                                                        class="card-img-top" alt="Logo del producto"
-                                                        style="height: 90px; object-fit: contain; margin: 10px;">
+                                                    class="card-img-top" alt="Logo del producto"
+                                                    style="height: 90px; object-fit: contain; margin: 10px;">
+                                               
                                                 </div>
 
                                                 <div class="card-header mt-auto"

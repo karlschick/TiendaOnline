@@ -83,6 +83,12 @@
                                     <img src="{{ asset('storage/' . $producto->imagen) }}" alt="Imagen del Producto" class="img-thumbnail" style="max-width: 200px;">
                                 </div>
                             @endif
+                                                            <!-- Mostrar mensaje de error si el tamaño del archivo excede el límite -->
+                                                            @if ($errors->has('imagen'))
+                                                            <span class="text-danger">
+                                                                {{ $errors->first('imagen') }}
+                                                            </span>
+                                                        @endif
                         </div>
 
                         <!-- Estado del producto -->
