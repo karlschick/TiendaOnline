@@ -3,6 +3,6 @@
 @section('title', 'Bienvenido a pagina')
 
 @section('content')
-    <h1>Página index</h1>
+    <h1>TIENDA ONLINE</h1>
     
 @endsection

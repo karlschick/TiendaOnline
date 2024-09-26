@@ -9,6 +9,7 @@ use App\Http\Controllers\FacturaController;
 use App\Http\Controllers\IngresarProductoController;
 use App\Http\Controllers\EliminarProductoController;
 use App\Http\Controllers\EdicionProductoController;
+use App\Http\Controllers\PagoController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -41,7 +42,29 @@ Route::put('tiendaonline/productos/actualizar/{id}', [EdicionProductoController:
 Route::delete('tiendaonline/ingresarproducto/eliminar/{id}', [EliminarProductoController::class, 'eliminar'])->name('productos.eliminar'); // Elimina un producto
 
 // Rutas para carrito
-Route::get('tiendaonline/carrito', [CarritoController::class, 'index'])->name('carrito'); // Vista del carrito
+// Ver el carrito (detalles)
+Route::get('/tiendaonline/carrito/detalles', [CarritoController::class, 'verCarrito'])->name('carrito.ver');
+
+// Vista principal del carrito
+Route::get('/tiendaonline/carrito', [CarritoController::class, 'index'])->name('carrito');
+
+// Agregar un producto al carrito
+Route::post('/tiendaonline/carrito/agregar/{id}', [CarritoController::class, 'agregarAlCarrito'])->name('carrito.agregar');
+
+// Eliminar un producto del carrito
+Route::delete('/tiendaonline/carrito/eliminar/{id}', [CarritoController::class, 'eliminarDelCarrito'])->name('carrito.eliminar');
+
+// Mostrar el resumen de la compra
+Route::get('/tiendaonline/carrito/resumen', [CarritoController::class, 'resumenCompra'])->name('carrito.resumen');
+
+// Confirmación de pago
+Route::get('/tiendaonline/pago/confirmacion', function() {
+    return view('tiendaonline.confirmacion'); // Cambié esto para que apunte a tu vista
+})->name('pago.confirmacion');
+
+// Ruta para procesar el pago
+Route::post('/tiendaonline/pago', [PagoController::class, 'realizarPago'])->name('pago.realizar');
+
 
 // Rutas para factura
 Route::get('tiendaonline/factura', [FacturaController::class, 'index'])->name('factura'); // Vista de la factura
@@ -56,3 +79,5 @@ Route::get('/tiendaonline', [ProductosController::class, 'index'])->name('produc
 Route::get('/tiendaonline/productoscategoria', [ProductosController::class, 'productosPorCategoria'])->name('productos.por.categoria');
 
 Route::put('/tiendaonline/edicionproducto/actualizar/{id}', [EdicionProductoController::class, 'actualizar'])->name('edicionproductos.actualizar');
+
+

@@ -11,7 +11,7 @@
     @include('tiendaonline.slider')
     <p></P>
 
-    <h1>Página de ventas</h1>
+    <h1>BIENVENIDO A TIENDA ONLINE</h1>
     <section class="px-sm-0 pb-sm-4 pt-sm-0 py-2">
         <div class="main-panel">
             <div class="container-fluid">
@@ -139,28 +139,53 @@
                                                                 style="max-height: 300px;">
                                                             <!-- Opciones de compra -->
                                                             @if ($producto->valor_unitario_mes != '0')
-                                                                <a href="/tienda/savecarrito/{{ $producto->id }}"
-                                                                    class="btn btn-primary mb-2">
-                                                                    Valor 1 Mes: <b>${{ $producto->valor_unitario_mes }}
-                                                                        COP</b>
-                                                                </a>
+                                                                <form
+                                                                    action="{{ route('carrito.agregar', $producto->id) }}"
+                                                                    method="POST" class="mb-2">
+                                                                    @csrf
+                                                                    <input type="hidden" name="cantidad" value="1">
+                                                                    <input type="hidden" name="tipo_compra" value="1_mes">
+                                                                    <!-- Campo oculto para tipo de compra -->
+                                                                    <button type="submit" class="btn btn-primary">
+                                                                        Valor 1 Mes:
+                                                                        <b>${{ $producto->valor_unitario_mes }} COP</b>
+                                                                    </button>
+                                                                </form>
                                                             @endif
 
                                                             @if ($producto->valor_seis_meses != '0')
-                                                                <a href="/tienda/savecarrito/{{ $producto->id }}"
-                                                                    class="btn btn-primary mb-2">
-                                                                    Valor 6 Meses: <b>${{ $producto->valor_seis_meses }}
-                                                                        COP</b>
-                                                                </a>
+                                                                <form
+                                                                    action="{{ route('carrito.agregar', $producto->id) }}"
+                                                                    method="POST" class="mb-2">
+                                                                    @csrf
+                                                                    <input type="hidden" name="cantidad" value="1">
+                                                                    <input type="hidden" name="tipo_compra"
+                                                                        value="6_meses">
+                                                                    <!-- Campo oculto para tipo de compra -->
+                                                                    <button type="submit" class="btn btn-primary">
+                                                                        Valor 6 Meses:
+                                                                        <b>${{ $producto->valor_seis_meses }} COP</b>
+                                                                    </button>
+                                                                </form>
                                                             @endif
 
                                                             @if ($producto->valor_doce_meses != '0')
-                                                                <a href="/tienda/savecarrito/{{ $producto->id }}"
-                                                                    class="btn btn-primary mb-2">
-                                                                    Valor 12 Meses: <b>${{ $producto->valor_doce_meses }}
-                                                                        COP</b>
-                                                                </a>
+                                                                <form
+                                                                    action="{{ route('carrito.agregar', $producto->id) }}"
+                                                                    method="POST" class="mb-2">
+                                                                    @csrf
+                                                                    <input type="hidden" name="cantidad" value="1">
+                                                                    <input type="hidden" name="tipo_compra"
+                                                                        value="12_meses">
+                                                                    <!-- Campo oculto para tipo de compra -->
+                                                                    <button type="submit" class="btn btn-primary">
+                                                                        Valor 12 Meses:
+                                                                        <b>${{ $producto->valor_doce_meses }} COP</b>
+                                                                    </button>
+                                                                </form>
                                                             @endif
+
+
 
                                                         </div>
 
