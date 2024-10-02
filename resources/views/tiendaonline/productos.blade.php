@@ -8,9 +8,28 @@
             {{ session('success') }}
         </div>
     @endif
-    @include('tiendaonline.slider')
+    <div class="container-fluid"> <!-- Cambiar a container-fluid para ocupar todo el ancho -->
+        @include('tiendaonline.slider', ['sliders' => $sliders])
+    </div>
     <p></P>
-
+        <style>
+            /* Estilo base para el texto */
+            .no-underline {
+                text-decoration: none; /* Evita el subrayado */
+            }
+    
+            .hover-shadow {
+                transition: text-shadow 0.3s ease; /* Transición suave */
+                cursor: pointer; /* Cambia el cursor al pasar el mouse */
+                color: black; /* Color base del texto */
+            }
+    
+            /* Sombra al pasar el mouse */
+            .hover-shadow:hover {
+                text-shadow: 2px 2px 4px rgba(206, 236, 37, 0.2); /* Efecto de sombra */
+                color: #717529; /* Cambia el color del texto al hacer hover */
+            }
+        </style>
     <h1>BIENVENIDO A TIENDA ONLINE</h1>
     <section class="px-sm-0 pb-sm-4 pt-sm-0 py-2">
         <div class="main-panel">
@@ -51,20 +70,18 @@
                             <div class="row">
                                 <!-- Listado de productos -->
                                 @foreach ($productos as $producto)
-                                    <div class="col-md-3 mb-0">
-                                        <!-- Enlace para abrir el modal del producto -->
-                                        <a href="#" data-toggle="modal" data-target="#productModal{{ $producto->id }}"
-                                            style="color:black;">
-                                            <div class="card border-dark mb-3 h-100">
-                                                <div class="card-body d-flex flex-column">
-                                                    <h4 class="card-title">{{ $producto->nombre_producto }}</h4>
-                                                    @if ($producto->nombre_producto == 'Códigos-Régimenes-Estatutos')
-                                                        <div class="text-center mt-auto">
-                                                            <span class="fas fa-fw fa-balance-scale"
-                                                                aria-hidden="true"></span>
-                                                        </div>
-                                                    @endif
-                                                </div>
+                                <div class="col-md-3 mb-0">
+                                    <!-- Enlace para abrir el modal del producto -->
+                                    <a href="#" data-toggle="modal" data-target="#productModal{{ $producto->id }}" class="hover-shadow no-underline">
+                                        <div class="card border-dark mb-3 h-100">
+                                            <div class="card-body d-flex flex-column">
+                                                <h4 class="card-title">{{ $producto->nombre_producto }}</h4> <!-- Mantén el h4 sin clase aquí -->
+                                                @if ($producto->nombre_producto == 'Códigos-Régimenes-Estatutos')
+                                                    <div class="text-center mt-auto">
+                                                        <span class="fas fa-fw fa-balance-scale" aria-hidden="true"></span>
+                                                    </div>
+                                                @endif
+                                            </div>
 
                                                 <!-- Contenedor para centrar la imagen -->
                                                 <div class="d-flex justify-content-center" style="padding: 10px;">

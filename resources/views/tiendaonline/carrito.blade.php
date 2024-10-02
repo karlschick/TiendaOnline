@@ -55,10 +55,7 @@
             </table>
 
             <div class="text-center my-4">
-                <form action="{{ route('pago.realizar') }}" method="POST">
-                    @csrf
-                    <button type="submit" class="btn btn-success">Confirmar Pago</button>
-                </form>
+                <a href="{{ route('formulario_compra') }}" class="btn btn-success">Realizar Compra</a>
             </div>
 
             <div class="text-center">

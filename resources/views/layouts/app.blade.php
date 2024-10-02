@@ -7,6 +7,7 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
 </head>
 <body>
     <header>
@@ -36,6 +37,9 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('gestionProducto') }}">Gestionar</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('sliderGestionar') }}">slider Gestion</a>
                         </li>
                     </ul>
                 </div>

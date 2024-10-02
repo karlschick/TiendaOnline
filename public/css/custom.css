@@ -1,0 +1,15 @@
+a {
+    text-decoration: none;  /* Quitar el subrayado */
+    color: black;          /* Color del texto del enlace */
+}
+
+/* Sombra al pasar el ratón sobre la tarjeta */
+a:hover .card {
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3); /* Sombra suave */
+    transition: box-shadow 0.3s ease; /* Transición suave para la sombra */
+}
+
+/* Opcional: estilo para la tarjeta sin sombra */
+.card {
+    transition: box-shadow 0.3s ease; /* Transición suave para el estado normal también */
+}

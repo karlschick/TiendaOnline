@@ -10,6 +10,8 @@ use App\Http\Controllers\IngresarProductoController;
 use App\Http\Controllers\EliminarProductoController;
 use App\Http\Controllers\EdicionProductoController;
 use App\Http\Controllers\PagoController;
+use App\Http\Controllers\CompraController;
+use App\Http\Controllers\SliderController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -80,4 +82,21 @@ Route::get('/tiendaonline/productoscategoria', [ProductosController::class, 'pro
 
 Route::put('/tiendaonline/edicionproducto/actualizar/{id}', [EdicionProductoController::class, 'actualizar'])->name('edicionproductos.actualizar');
 
+// Ruta para mostrar el formulario de compra
+Route::get('/tiendaonline/formulario_compra', [CompraController::class, 'formulario'])->name('formulario_compra');
 
+// Ruta para procesar la compra al enviar el formulario
+Route::post('/tiendaonline/comprar', [CompraController::class, 'comprar'])->name('comprar');
+
+// Ruta para mostrar el resumen de la compra
+Route::get('/tiendaonline/resumen-compra', [CarritoController::class, 'resumenCompra'])->name('resumen_compra');
+
+
+// Rutas para el Slider
+Route::get('/tiendaonline/sliderGestionar', [SliderController::class, 'index'])->name('sliderGestionar');
+Route::get('/tiendaonline/slideragregar', [SliderController::class, 'create'])->name('slideragregar');
+Route::post('/tiendaonline/sliderguardar', [SliderController::class, 'store'])->name('sliderguardar');
+Route::get('/tiendaonline/slidereditar/{id}', [SliderController::class, 'edit'])->name('slidereditar');
+Route::put('/tiendaonline/slideractualizar/{id}', [SliderController::class, 'update'])->name('slideractualizar');
+Route::delete('/tiendaonline/sliderborrar/{id}', [SliderController::class, 'destroy'])->name('sliderborrar');
+Route::get('/tiendaonline/productos', [ProductosController::class, 'mostrarProductos'])->name('productos');

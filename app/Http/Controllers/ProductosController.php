@@ -1,8 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\CategoriaProducto; 
 use App\Producto; // Asegúrate de que la ruta del modelo sea correcta
+use App\Slider; // Importar el modelo Slider
 use Illuminate\Http\Request;
 
 class ProductosController extends Controller
@@ -18,7 +20,6 @@ class ProductosController extends Controller
     
         return view('tiendaonline.productos', compact('categorias', 'productos')); // Pasar las categorías y los productos a la vista
     }
-    
 
     // Método para manejar la solicitud POST y guardar el producto
     public function store(Request $request)
@@ -66,32 +67,32 @@ class ProductosController extends Controller
         $producto->save();
     
         // Redireccionar a una página o mostrar un mensaje de éxito
-        return redirect()->route('tiendaonline.productos')->with('success', 'Producto guardado correctamente.');
+        return redirect()->route('productos.mostrar')->with('success', 'Producto guardado correctamente.');
     }
-    
-    // Actualizar el producto
-/*     public function gestionar()
-    {
-        // Obtener todos los productos para la vista
-        $productos = Producto::all();
-        return view('tiendaonline.gestionarproducto', compact('productos'));
-    } */
 
     public function productosPorCategoria(Request $request)
     {
         // Obtener la categoría seleccionada
         $categoriaId = $request->input('categorias');
         
-    // Consultar los productos de la categoría seleccionada que están activos
-    $productos = Producto::where('id_categoria', $categoriaId)
-                         ->where('estado_producto', 'activo')
-                         ->get();
+        // Consultar los productos de la categoría seleccionada que están activos
+        $productos = Producto::where('id_categoria', $categoriaId)
+                             ->where('estado_producto', 'activo')
+                             ->get();
         // Obtener las categorías para mostrar en el selector
         $categorias = CategoriaProducto::all();
 
         return view('tiendaonline.productos', compact('productos', 'categorias'));
     }
 
-
+    public function mostrarProductos()
+    {
+        $sliders = Slider::all(); // Obtén todos los sliders desde la base de datos
+        $categorias = CategoriaProducto::all(); // Obtén todas las categorías
+        $productos = Producto::where('estado_producto', 'activo')->get(); // Obtén solo los productos activos
+    
+        return view('tiendaonline.productos', compact('sliders', 'categorias', 'productos')); // Pasar sliders, categorías y productos a la vista
+    }
 }
+
 

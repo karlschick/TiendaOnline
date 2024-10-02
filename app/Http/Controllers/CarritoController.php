@@ -16,12 +16,12 @@ class CarritoController extends Controller
         // Obtener los productos en el carrito de la base de datos
         $productos = Producto::whereIn('id', $productoIds)->get();
 
-    // Calcular el total de la compra
-    $total = 0;
-    foreach ($productos as $producto) {
-        $cantidad = $carrito[$producto->id]['cantidad'];
-        $precio = $carrito[$producto->id]['precio']; // Usar el precio almacenado en el carrito
-        $total += $precio * $cantidad; // Calcular el subtotal correcto
+        // Calcular el total de la compra
+        $total = 0;
+        foreach ($productos as $producto) {
+            $cantidad = $carrito[$producto->id]['cantidad'];
+            $precio = $carrito[$producto->id]['precio']; // Usar el precio almacenado en el carrito
+            $total += $precio * $cantidad; // Calcular el subtotal correcto
         }
 
         return view('tiendaonline.carrito', compact('productos', 'carrito', 'total'));
@@ -116,7 +116,6 @@ class CarritoController extends Controller
             'total' => $total // Pasar el total a la vista
         ]);
     }
-    
 
     public function resumenCompra()
     {
