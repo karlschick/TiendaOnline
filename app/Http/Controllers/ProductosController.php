@@ -18,8 +18,13 @@ class ProductosController extends Controller
         // Obtener solo los productos activos
         $productos = Producto::where('estado_producto', 'activo')->get();
     
-        return view('tiendaonline.productos', compact('categorias', 'productos')); // Pasar las categorías y los productos a la vista
+        // Obtener los sliders, si es necesario
+        $sliders = Slider::all(); // Asegúrate de tener el modelo Slider importado
+    
+        return view('tiendaonline.productos', compact('categorias', 'productos', 'sliders'));
     }
+    
+    
 
     // Método para manejar la solicitud POST y guardar el producto
     public function store(Request $request)

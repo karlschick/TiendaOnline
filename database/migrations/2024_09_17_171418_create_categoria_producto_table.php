@@ -13,13 +13,14 @@ class CreateCategoriaProductoTable extends Migration
      */
     public function up()
     {
-        Schema::create('categoria_producto', function (Blueprint $table) {
-            $table->id(); // Columna id con auto_increment y PK
-            $table->string('nombre_categoria', 45);
-            $table->string('descripcion_categoria', 100)->nullable(); // Permite que la descripción sea opcional
-            $table->timestamps(); // Agrega columnas created_at y updated_at
-        });
-        
+        if (!Schema::hasTable('categoria_producto')) {
+            Schema::create('categoria_producto', function (Blueprint $table) {
+                $table->id();
+                $table->string('nombre_categoria', 45);
+                $table->string('descripcion_categoria', 100)->nullable();
+                $table->timestamps();
+            });
+        }
     }
 
     /**

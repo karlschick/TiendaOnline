@@ -61,12 +61,12 @@ Route::get('/tiendaonline/carrito/resumen', [CarritoController::class, 'resumenC
 
 // Confirmación de pago
 Route::get('/tiendaonline/pago/confirmacion', function() {
-    return view('tiendaonline.confirmacion'); // Cambié esto para que apunte a tu vista
-})->name('pago.confirmacion');
+    return view('tiendaonline.confirmacion'); // Asegúrate de que apunte a tu vista correcta
+})->name('confirmacion_pago'); // Cambié el nombre de la ruta
 
 // Ruta para procesar el pago
 Route::post('/tiendaonline/pago', [PagoController::class, 'realizarPago'])->name('pago.realizar');
-
+Route::get('/tiendaonline/pago/confirmacion', [CompraController::class, 'confirmarPago'])->name('confirmacion_pago');;
 
 // Rutas para factura
 Route::get('tiendaonline/factura', [FacturaController::class, 'index'])->name('factura'); // Vista de la factura
@@ -100,3 +100,6 @@ Route::get('/tiendaonline/slidereditar/{id}', [SliderController::class, 'edit'])
 Route::put('/tiendaonline/slideractualizar/{id}', [SliderController::class, 'update'])->name('slideractualizar');
 Route::delete('/tiendaonline/sliderborrar/{id}', [SliderController::class, 'destroy'])->name('sliderborrar');
 Route::get('/tiendaonline/productos', [ProductosController::class, 'mostrarProductos'])->name('productos');
+
+Route::get('/tiendaonline/pasarela_pago', [CompraController::class, 'pasarelaPago'])->name('pasarela_pago');
+
