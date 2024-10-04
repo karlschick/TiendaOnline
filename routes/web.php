@@ -12,6 +12,7 @@ use App\Http\Controllers\EdicionProductoController;
 use App\Http\Controllers\PagoController;
 use App\Http\Controllers\CompraController;
 use App\Http\Controllers\SliderController;
+use App\Http\Controllers\EntregaController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -103,3 +104,6 @@ Route::get('/tiendaonline/productos', [ProductosController::class, 'mostrarProdu
 
 Route::get('/tiendaonline/pasarela_pago', [CompraController::class, 'pasarelaPago'])->name('pasarela_pago');
 
+Route::get('/tiendaonline/entregas', [EntregaController::class, 'index'])->name('entregas.index');
+Route::get('/tiendaonline/entregas/{id}/editar', [EntregaController::class, 'edit'])->name('entregas.editar');
+Route::put('/tiendaonline/entregas/{id}', [EntregaController::class, 'update'])->name('entregas.actualizar');

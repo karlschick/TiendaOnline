@@ -39,7 +39,10 @@
                             <a class="nav-link" href="{{ route('gestionProducto') }}">Gestionar</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('sliderGestionar') }}">slider Gestion</a>
+                            <a class="nav-link" href="{{ route('sliderGestionar') }}">Slider Gestión</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('entregas.index') }}">Gestión Entregas</a>
                         </li>
                     </ul>
                 </div>
