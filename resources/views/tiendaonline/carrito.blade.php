@@ -15,7 +15,7 @@
         @if (empty($productos) || count($productos) == 0)
             <div class="alert alert-warning text-center">
                 <p>No hay productos en tu carrito.</p>
-                <a href="{{ route('productos.index') }}" class="btn btn-primary">Regresar a Productos</a>
+                <a href="{{ route('productos') }}" class="btn btn-primary">Regresar a Productos</a>
             </div>
         @else
             <table class="table table-striped table-bordered">
@@ -59,7 +59,7 @@
             </div>
 
             <div class="text-center">
-                <a href="{{ route('productos.index') }}" class="btn btn-primary">Regresar a la Tienda</a>
+                <a href="{{ route('productos') }}" class="btn btn-primary">Regresar a la Tienda</a>
             </div>
         @endif
     </div>

@@ -75,20 +75,26 @@ class ProductosController extends Controller
         return redirect()->route('productos.mostrar')->with('success', 'Producto guardado correctamente.');
     }
 
-    public function productosPorCategoria(Request $request)
-    {
-        // Obtener la categoría seleccionada
-        $categoriaId = $request->input('categorias');
-        
-        // Consultar los productos de la categoría seleccionada que están activos
-        $productos = Producto::where('id_categoria', $categoriaId)
-                             ->where('estado_producto', 'activo')
-                             ->get();
-        // Obtener las categorías para mostrar en el selector
-        $categorias = CategoriaProducto::all();
+public function productosPorCategoria(Request $request)
+{
+    // Obtener la categoría seleccionada
+    $categoriaId = $request->input('categorias');
+    
+    // Consultar los productos de la categoría seleccionada que están activos
+    $productos = Producto::where('id_categoria', $categoriaId)
+                         ->where('estado_producto', 'activo')
+                         ->get();
+    
+    // Obtener las categorías para mostrar en el selector
+    $categorias = CategoriaProducto::all();
 
-        return view('tiendaonline.productos', compact('productos', 'categorias'));
-    }
+    // Obtener los sliders
+    $sliders = Slider::all(); // Asegúrate de que este modelo esté correctamente importado y definido
+
+    // Retornar la vista con los productos, categorías y sliders
+    return view('tiendaonline.productos', compact('productos', 'categorias', 'sliders'));
+}
+
 
     public function mostrarProductos()
     {

@@ -10,9 +10,6 @@
     <script type="module" src="js/main.js"></script>
     </head>
     <body>
-    <div class="container py-4 px-3 mx-auto">
-      <h1>ingreso a plataforma</h1>
-      <button class="btn btn-primary">Primary button</button>
-    </div>
+
     </body>
 @endsection

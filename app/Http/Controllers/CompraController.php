@@ -67,8 +67,9 @@ class CompraController extends Controller
         $request->session()->put('total', $total);
 
         // Redirigir a la pasarela de pago
-        return redirect()->route('pasarela_pago')->with('success', 'Compra realizada con éxito. Ahora puedes proceder al pago.');
+        return redirect()->route('payment.form'); // Cambia 'pasarela_pago' a 'payment.form'
     }
+    
 
     public function pasarelaPago(Request $request)
     {

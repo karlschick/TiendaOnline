@@ -13,6 +13,8 @@ use App\Http\Controllers\PagoController;
 use App\Http\Controllers\CompraController;
 use App\Http\Controllers\SliderController;
 use App\Http\Controllers\EntregaController;
+use App\Http\Controllers\PaymentController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -28,82 +30,68 @@ use App\Http\Controllers\EntregaController;
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
 // Rutas para productos
-Route::get('tiendaonline/productos', [ProductosController::class, 'index'])->name('productos'); // Lista todos los productos
-Route::get('tiendaonline/productos/gestionar', [ProductosController::class, 'gestionar'])->name('productos.gestionar'); // Vista para gestionar productos
-
-// Rutas para añadir un producto
-Route::get('tiendaonline/ingresarproducto', [IngresarProductoController::class, 'create'])->name('ingresarProducto'); // Vista para añadir un producto
-
-
-Route::post('tiendaonline/ingresarproducto', [IngresarProductoController::class, 'store'])->name('ingresarProducto.store'); // Guarda un nuevo producto
+Route::get('/tiendaonline/productos', [ProductosController::class, 'index'])->name('productos'); // Lista todos los productos
 
 // Rutas para editar un producto
-Route::get('tiendaonline/productos/editar/{id}', [EdicionProductoController::class, 'edit'])->name('productos.editar');
-Route::put('tiendaonline/productos/actualizar/{id}', [EdicionProductoController::class, 'actualizar'])->name('productos.actualizar');
+Route::get('/tiendaonline/productos/editar/{id}', [EdicionProductoController::class, 'edit'])->name('productos.editar'); // Vista para editar un producto
+Route::put('/tiendaonline/edicionproducto/actualizar/{id}', [EdicionProductoController::class, 'actualizar'])->name('edicionproductos.actualizar'); // Actualiza un producto
+
+// Rutas para añadir un producto
+Route::get('/tiendaonline/ingresarproducto', [IngresarProductoController::class, 'create'])->name('ingresarProducto'); // Vista para añadir un producto
+Route::post('tiendaonline/ingresarproducto', [IngresarProductoController::class, 'store'])->name('ingresarProducto.store'); // Guarda un nuevo producto
 
 // Rutas para eliminar un producto
-Route::delete('tiendaonline/ingresarproducto/eliminar/{id}', [EliminarProductoController::class, 'eliminar'])->name('productos.eliminar'); // Elimina un producto
+Route::delete('/tiendaonline/ingresarproducto/eliminar/{id}', [EliminarProductoController::class, 'eliminar'])->name('productos.eliminar'); // Elimina un producto
 
 // Rutas para carrito
-// Ver el carrito (detalles)
-Route::get('/tiendaonline/carrito/detalles', [CarritoController::class, 'verCarrito'])->name('carrito.ver');
-
-// Vista principal del carrito
-Route::get('/tiendaonline/carrito', [CarritoController::class, 'index'])->name('carrito');
-
-// Agregar un producto al carrito
-Route::post('/tiendaonline/carrito/agregar/{id}', [CarritoController::class, 'agregarAlCarrito'])->name('carrito.agregar');
-
-// Eliminar un producto del carrito
-Route::delete('/tiendaonline/carrito/eliminar/{id}', [CarritoController::class, 'eliminarDelCarrito'])->name('carrito.eliminar');
-
-// Mostrar el resumen de la compra
-Route::get('/tiendaonline/carrito/resumen', [CarritoController::class, 'resumenCompra'])->name('carrito.resumen');
+Route::get('/tiendaonline/carrito/detalles', [CarritoController::class, 'verCarrito'])->name('carrito.ver'); // Ver el carrito (detalles)
+Route::get('/tiendaonline/carrito', [CarritoController::class, 'index'])->name('carrito'); // Vista principal del carrito
+Route::post('/tiendaonline/carrito/agregar/{id}', [CarritoController::class, 'agregarAlCarrito'])->name('carrito.agregar'); // Agregar un producto al carrito
+Route::delete('/tiendaonline/carrito/eliminar/{id}', [CarritoController::class, 'eliminarDelCarrito'])->name('carrito.eliminar'); // Eliminar un producto del carrito
 
 // Confirmación de pago
-Route::get('/tiendaonline/pago/confirmacion', function() {
-    return view('tiendaonline.confirmacion'); // Asegúrate de que apunte a tu vista correcta
-})->name('confirmacion_pago'); // Cambié el nombre de la ruta
-
-// Ruta para procesar el pago
-Route::post('/tiendaonline/pago', [PagoController::class, 'realizarPago'])->name('pago.realizar');
-Route::get('/tiendaonline/pago/confirmacion', [CompraController::class, 'confirmarPago'])->name('confirmacion_pago');;
+Route::get('/tiendaonline/pago/confirmacion', [CompraController::class, 'confirmarPago'])->name('confirmacion_pago'); // Vista de confirmación de pago
+Route::post('/tiendaonline/pago', [PagoController::class, 'realizarPago'])->name('pago.realizar'); // Ruta para procesar el pago
 
 // Rutas para factura
-Route::get('tiendaonline/factura', [FacturaController::class, 'index'])->name('factura'); // Vista de la factura
+Route::get('/tiendaonline/factura', [FacturaController::class, 'index'])->name('factura'); // Vista de la factura
+Route::get('/tiendaonline/factura/generar/{id}', [FacturaController::class, 'generarFactura'])->name('factura.generar'); // Generar una factura específica
 
 // Rutas para gestión de productos
-Route::get('tiendaonline/gestionProducto', [GestionProductoController::class, 'index'])->name('gestionProducto'); // Vista para la gestión de productos
-/* Route::put('tiendaonline/gestion-producto/actualizar/{id}', [GestionProductoController::class, 'actualizar'])->name('gestionProducto.actualizar'); // Actualiza producto en gestión
-Route::delete('tiendaonline/gestion-producto/eliminar/{id}', [GestionProductoController::class, 'eliminar'])->name('gestionProducto.eliminar'); // Elimina producto en gestión 
- */
-Route::get('/tiendaonline/gestionproducto', [GestionProductoController::class, 'index'])->name('gestionProducto');
-Route::get('/tiendaonline', [ProductosController::class, 'index'])->name('productos.index');
-Route::get('/tiendaonline/productoscategoria', [ProductosController::class, 'productosPorCategoria'])->name('productos.por.categoria');
+Route::get('/tiendaonline/gestionproducto', [GestionProductoController::class, 'index'])->name('gestionProducto'); // Gestión de productos
 
-Route::put('/tiendaonline/edicionproducto/actualizar/{id}', [EdicionProductoController::class, 'actualizar'])->name('edicionproductos.actualizar');
+// Rutas para listar productos por categoría
+Route::get('/tiendaonline/productoscategoria', [ProductosController::class, 'productosPorCategoria'])->name('productos.por.categoria'); // Lista productos por categoría
 
 // Ruta para mostrar el formulario de compra
-Route::get('/tiendaonline/formulario_compra', [CompraController::class, 'formulario'])->name('formulario_compra');
+Route::get('/tiendaonline/formulario_compra', [CompraController::class, 'formulario'])->name('formulario_compra'); // Muestra el formulario de compra
 
 // Ruta para procesar la compra al enviar el formulario
-Route::post('/tiendaonline/comprar', [CompraController::class, 'comprar'])->name('comprar');
-
-// Ruta para mostrar el resumen de la compra
-Route::get('/tiendaonline/resumen-compra', [CarritoController::class, 'resumenCompra'])->name('resumen_compra');
-
+Route::post('/tiendaonline/comprar', [CompraController::class, 'comprar'])->name('comprar'); // Procesa la compra
 
 // Rutas para el Slider
-Route::get('/tiendaonline/sliderGestionar', [SliderController::class, 'index'])->name('sliderGestionar');
-Route::get('/tiendaonline/slideragregar', [SliderController::class, 'create'])->name('slideragregar');
-Route::post('/tiendaonline/sliderguardar', [SliderController::class, 'store'])->name('sliderguardar');
-Route::get('/tiendaonline/slidereditar/{id}', [SliderController::class, 'edit'])->name('slidereditar');
-Route::put('/tiendaonline/slideractualizar/{id}', [SliderController::class, 'update'])->name('slideractualizar');
-Route::delete('/tiendaonline/sliderborrar/{id}', [SliderController::class, 'destroy'])->name('sliderborrar');
-Route::get('/tiendaonline/productos', [ProductosController::class, 'mostrarProductos'])->name('productos');
+Route::get('/tiendaonline/sliderGestionar', [SliderController::class, 'index'])->name('sliderGestionar'); // Gestionar sliders
+Route::get('/tiendaonline/slideragregar', [SliderController::class, 'create'])->name('slideragregar'); // Vista para agregar un slider
+Route::post('/tiendaonline/sliderguardar', [SliderController::class, 'store'])->name('sliderguardar'); // Guardar un nuevo slider
+Route::get('/tiendaonline/slidereditar/{id}', [SliderController::class, 'edit'])->name('slidereditar'); // Editar un slider existente
+Route::put('/tiendaonline/slideractualizar/{id}', [SliderController::class, 'update'])->name('slideractualizar'); // Actualizar un slider
+Route::delete('/tiendaonline/sliderborrar/{id}', [SliderController::class, 'destroy'])->name('sliderborrar'); // Eliminar un slider
 
-Route::get('/tiendaonline/pasarela_pago', [CompraController::class, 'pasarelaPago'])->name('pasarela_pago');
+// Ruta para la pasarela de pago
+Route::get('/tiendaonline/pasarela_pago', [CompraController::class, 'pasarelaPago'])->name('pasarela_pago'); // Vista de la pasarela de pago
 
-Route::get('/tiendaonline/entregas', [EntregaController::class, 'index'])->name('entregas.index');
-Route::get('/tiendaonline/entregas/{id}/editar', [EntregaController::class, 'edit'])->name('entregas.editar');
-Route::put('/tiendaonline/entregas/{id}', [EntregaController::class, 'update'])->name('entregas.actualizar');
+// Rutas para el módulo de entregas
+Route::get('/tiendaonline/entregas', [EntregaController::class, 'index'])->name('entregas.index'); // Vista principal de entregas
+Route::get('/tiendaonline/entregas/{id}/editar', [EntregaController::class, 'edit'])->name('entregas.editar'); // Editar una entrega específica
+Route::put('/tiendaonline/entregas/{id}', [EntregaController::class, 'update'])->name('entregas.actualizar'); // Actualizar una entrega
+
+
+// Mostrar el formulario de pago
+Route::get('/tiendaonline/pago', [PaymentController::class, 'showPaymentForm'])->name('payment.form');
+
+// Procesar el pago y redirigir a Wompi
+
+Route::post('/tiendaonline/pago/procesar', [PaymentController::class, 'processPayment'])->name('payment.process');
+
+// Confirmación del pago desde Wompi
+Route::get('/tiendaonline/pago/confirmacion', [PaymentController::class, 'confirmPayment'])->name('payment.confirm');

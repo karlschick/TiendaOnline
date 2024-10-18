@@ -1,18 +1,23 @@
 @extends('layouts.app')
 
-@section('title', 'Confirmación de Pago')
-
 @section('content')
-    <h1>CONFIRMACION DE PAGO</h1>
+<div class="container">
+    <h1 class="text-center">Confirmación de Pago</h1>
 
-    @if (session('success'))
+    @if(session('success'))
         <div class="alert alert-success">
             {{ session('success') }}
         </div>
     @endif
 
-    <p>Tu pago ha sido procesado exitosamente. Gracias por tu compra.</p>
+    @if(session('error'))
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
+    @endif
 
-    <!-- Botón para regresar a productos -->
-    <a href="{{ route('productos.index') }}" class="btn btn-primary">Regresar a la Tienda</a>
+    <div class="text-center">
+        <a href="{{ route('productos') }}" class="btn btn-primary">Volver a la tienda</a>
+    </div>
+</div>
 @endsection
