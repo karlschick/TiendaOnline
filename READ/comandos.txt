@@ -1,0 +1,37 @@
+TiendaOnline v.2024
+
+php artisan serve
+
+------------------------------------
+php artisan migrate:fresh --seed		creacion de migraciones primaria
+php artisan db:seed --class=AdminUserSeeder	creacion de usuarios
+-------------------------------------
+
+-----------------------------------------------
+.env
+
+php artisan key:generate
+
+-----------------------------------------
+borrar todos los datos de base de datos con migrate
+
+php artisan migrate:fresh --seed
+
+-----------------------------------------
+crea  los datos de base de datos con migrate de seeder
+
+php artisan db:seed --class=AdminUserSeeder
+
+
+
+Objetivo									Comando
+Ejecutar todos los seeders registrados			php artisan db:seed
+Ejecutar un seeder específico				php artisan db:seed --class=NombreDelSeeder
+Resetear base y seeders					php artisan migrate:fresh --seed
+Refrescar (rollback + migrate + seed)			php artisan migrate:refresh --seed
+Forzar seeders en producción				php artisan db:seed --force
+
+
+php artisan config:clear
+php artisan cache:clear
+php artisan config:cache
